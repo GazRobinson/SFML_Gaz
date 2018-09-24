@@ -11,19 +11,29 @@ int WinMain( HINSTANCE hInstance,
 	 int       nCmdShow) {
 
 
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(256, 240), "SFML works!");
+	window.setSize(sf::Vector2u(512, 480));
 	Input input;
 	Level level(&window, &input);
 
 	//Delta time calculation
 	sf::Clock clock;
 	float deltaTime;
+	sf::Text fpsText;
+	sf::Font txtFont;
+
+	if (!txtFont.loadFromFile("Images/ALGER.ttf")) {
+		std::cout << "Error loading font\n";
+	}
+	fpsText.setFont(txtFont);
+	fpsText.setCharacterSize(16);
+	fpsText.setFillColor(sf::Color::Green);
 
 	while (window.isOpen())
 	{
 		//Reset the clock
 		deltaTime = clock.restart().asSeconds();
-
+		fpsText.setString(std::to_string(1.0f / deltaTime));
 		//Reset the Input and log the last tick's input
 		input.Update();
 
@@ -40,7 +50,6 @@ int WinMain( HINSTANCE hInstance,
 					else
 						input.SetKeyDown(event.key.code);
 					break;
-
 				case sf::Event::KeyReleased:
 						input.SetKeyUp(event.key.code);
 					break;
@@ -58,7 +67,11 @@ int WinMain( HINSTANCE hInstance,
 		
 		level.HandleInput();
 		level.Update(deltaTime);
+
+		window.clear(sf::Color::Black);
 		level.Render();
+		window.draw(fpsText);
+		window.display();
 	}
 
 	return 0;

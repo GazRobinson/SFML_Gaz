@@ -4,7 +4,11 @@
 #include <string>
 #include <iostream>
 #include "Input.h"
+#include "PlayerController.h"
 #include "Player.h"
+#include "TileMap.h"
+#include "MapTile.h"
+#include "Collision.h"
 
 class Level
 {
@@ -21,15 +25,17 @@ private:
 	Input* input;
 	void BeginDraw();
 	void EndDraw();
-
-	//Level variables
-	sf::RectangleShape rect;
-	sf::CircleShape circle;
-	sf::Color squareColor;
-	
+		
 	//Test Sprite
+	PlayerController pController;
 	Player gSprite;
+	Player gSprite2;
 	sf::Texture gSpriteTex;
+	sf::Texture gSpriteTex2;
+	Line a;
+	Line b;
 
+	//Map
+	TileMap tileMap;
 };
 

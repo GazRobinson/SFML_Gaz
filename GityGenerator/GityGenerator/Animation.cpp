@@ -31,17 +31,27 @@ sf::IntRect Animation::GetCurrentFrame() {
 	return frame;
 }
 
+void Animation::SetAnimationType(AnimationType animType)
+{
+	animationType = animType;
+}
+
 void Animation::Animate(float dt) {
 	if (isPlaying) {
 		elapsedTime += dt;
 		if (elapsedTime >= animationSpeed) {
 			currentFrame++;
 			if (currentFrame >= (int)frames.size()) {
-				if (isLooping) {
+				switch (animationType) {
+				case AnimationType::Loop:
 					currentFrame = 0;
-				}
-				else {
+					break;
+				case AnimationType::Once:
 					currentFrame--;
+					break;
+				default:
+					currentFrame--;
+					break;
 				}
 			}
 			elapsedTime = 0;

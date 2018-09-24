@@ -31,3 +31,25 @@ sf::Vector2f GSprite::GetVelocity()
 {
 	return velocity;
 }
+
+void GSprite::CollisionResponse(GSprite * sp)
+{
+}
+
+Line GSprite::GetEdge(int edge)
+{
+	switch (edge) {
+	case 0:
+		return Line(sf::Vector2f(GetCollisionBox().left, GetCollisionBox().top), sf::Vector2f(GetCollisionBox().left + GetCollisionBox().width, GetCollisionBox().top));
+		break;
+	case 1:
+		return Line(sf::Vector2f(GetCollisionBox().left + GetCollisionBox().width, GetCollisionBox().top), sf::Vector2f(GetCollisionBox().left + GetCollisionBox().width, GetCollisionBox().top + GetCollisionBox().height));
+		break;
+	case 2:
+		return Line(sf::Vector2f(GetCollisionBox().left, GetCollisionBox().top + GetCollisionBox().height), sf::Vector2f(GetCollisionBox().left + GetCollisionBox().width, GetCollisionBox().top + GetCollisionBox().height));
+		break;
+	case 3:
+		return Line(sf::Vector2f(GetCollisionBox().left, GetCollisionBox().top), sf::Vector2f(GetCollisionBox().left, GetCollisionBox().top + GetCollisionBox().height));
+		break;
+	}
+}

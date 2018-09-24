@@ -5,6 +5,12 @@
 class Animation
 {
 public:
+	enum class AnimationType {
+		Once,
+		Loop,
+		PingPong
+	};
+
 	Animation();
 	~Animation();
 
@@ -27,16 +33,18 @@ public:
 	bool GetLooping() { return isLooping; };
 	void SetPlaying(bool play) { isPlaying = play; };
 	bool GetPlaying() { return isPlaying; };
+	void SetAnimationType(AnimationType animType);
 
 
 protected:
-	std::vector<sf::IntRect> frames;
-	sf::IntRect frame;
-	int currentFrame;
-	float animationSpeed;
-	bool flipped;
-	bool isLooping;
-	bool isPlaying;
-	float elapsedTime;
+	std::vector<sf::IntRect>	frames;
+	sf::IntRect					frame;
+	int							currentFrame;
+	float						animationSpeed;
+	bool						flipped;
+	bool						isLooping;
+	bool						isPlaying;
+	float						elapsedTime;
+	AnimationType				animationType;
 };
 
